@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sunil Kumar - Portfolio Website
+
+A futuristic portfolio website built with Next.js, React, Tailwind CSS, and Three.js.
+
+## Features
+
+- 🌙 Dark mode by default with light mode toggle
+- 🎨 Futuristic UI with neon glow effects
+- 🌐 Interactive 3D background with Three.js
+- 📱 Fully responsive design for all devices
+- ⚡ Fast performance with Next.js
+- 🔄 Smooth animations with Framer Motion
+- 📝 Contact form with EmailJS integration
+- 🔍 SEO optimized
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **3D Effects**: Three.js
+- **Form Handling**: EmailJS
+- **Deployment**: Vercel (recommended)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18.17 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/portfolio.git
+   cd portfolio
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## Project Structure
+
+```
+my-portfolio/
+├── public/              # Static assets
+├── src/
+│   ├── app/             # App router pages
+│   ├── components/      # React components
+│   └── styles/          # Global styles
+├── tailwind.config.js   # Tailwind configuration
+├── next.config.js       # Next.js configuration
+└── package.json         # Project dependencies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Customization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Contact Form
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To make the contact form work, you need to set up EmailJS:
 
-## Learn More
+1. Create an account at [EmailJS](https://www.emailjs.com/)
+2. Create a service and template
+3. Update the following in `Contact.tsx`:
+   ```typescript
+   await emailjs.sendForm(
+     "YOUR_SERVICE_ID",
+     "YOUR_TEMPLATE_ID",
+     formRef.current!,
+     "YOUR_USER_ID"
+   );
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+### Profile Image
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Replace the placeholder image at `public/profile-placeholder.jpg` with your own profile image.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Project Images
 
-## Deploy on Vercel
+Add your project images to the `public/` directory and update the paths in `Projects.tsx`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Three.js](https://threejs.org/)
+- [EmailJS](https://www.emailjs.com/)

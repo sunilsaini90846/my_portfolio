@@ -6,8 +6,13 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0A0A0A;
+  --foreground: #F0F0F0;
+  --primary: #00FFFF;
+  --secondary: #FF00FF;
+  --accent: #FFFF00;
+  --dark-blue: #000033;
+  --grid-size: 30px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +24,74 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--dark-blue);
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-blue);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Neon text effect */
+.neon-text {
+  color: var(--foreground);
+  text-shadow: 
+    0 0 5px var(--primary),
+    0 0 10px var(--primary),
+    0 0 15px var(--primary);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(10, 10, 10, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+/* Holographic effect */
+.holographic {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+/* Animated gradient border */
+@keyframes borderAnimation {
+  0% {
+    border-image-source: linear-gradient(0deg, var(--primary), var(--secondary));
+  }
+  50% {
+    border-image-source: linear-gradient(180deg, var(--secondary), var(--accent));
+  }
+  100% {
+    border-image-source: linear-gradient(360deg, var(--accent), var(--primary));
+  }
+}
+
+.animated-border {
+  border: 2px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, var(--primary), var(--secondary));
+  animation: borderAnimation 5s infinite linear;
 }
