@@ -2,6 +2,9 @@
   "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
+  "author": "Sunil Kumar",
+  "license": "UNLICENSED",
+  "description": "Personal portfolio website of Sunil Kumar",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -26,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.0",
+    "firebase-tools": "^13.32.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

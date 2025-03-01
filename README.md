@@ -21,7 +21,7 @@ A futuristic portfolio website built with Next.js, React, Tailwind CSS, and Thre
 - **Animations**: Framer Motion
 - **3D Effects**: Three.js
 - **Form Handling**: EmailJS
-- **Deployment**: Vercel (recommended)
+- **Deployment**: Firebase Hosting
 
 ## Getting Started
 
@@ -50,6 +50,11 @@ A futuristic portfolio website built with Next.js, React, Tailwind CSS, and Thre
    npm run dev
    # or
    yarn dev
+   ```
+
+   deploye:
+   ```npm run build -- --no-lint
+      npx firebase deploy
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
@@ -82,7 +87,7 @@ To make the contact form work, you need to set up EmailJS:
      "YOUR_SERVICE_ID",
      "YOUR_TEMPLATE_ID",
      formRef.current!,
-     "YOUR_USER_ID"
+     "YOUR_PUBLIC_KEY"
    );
    ```
 
@@ -96,11 +101,13 @@ Add your project images to the `public/` directory and update the paths in `Proj
 
 ## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
+The portfolio is deployed using Firebase Hosting. You can access it at: https://your-portfolio-profile.web.app
 
-## License
+## Copyright
 
-This project is open source and available under the [MIT License](LICENSE).
+© 2024 Sunil Kumar. All rights reserved.
+
+This portfolio website and its content are the property of Sunil Kumar. Unauthorized use, reproduction, or distribution of any part of this website is strictly prohibited.
 
 ## Acknowledgements
 
@@ -109,3 +116,4 @@ This project is open source and available under the [MIT License](LICENSE).
 - [Framer Motion](https://www.framer.com/motion/)
 - [Three.js](https://threejs.org/)
 - [EmailJS](https://www.emailjs.com/)
+- [Firebase](https://firebase.google.com/)
