@@ -4,18 +4,20 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
+type FormData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
 export default function Contact() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    success: boolean;
-    message: string;
-  } | null>(null);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,47 +31,21 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
-      setSubmitStatus({
-        success: false,
-        message: "Please fill in all fields",
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+    setStatus("submitting");
 
     try {
-      // Note: Replace these with your actual EmailJS service, template, and user IDs
-      // when deploying the application
+      // Replace with your EmailJS service ID, template ID, and user ID
       await emailjs.sendForm(
         "YOUR_SERVICE_ID",
         "YOUR_TEMPLATE_ID",
         formRef.current!,
         "YOUR_USER_ID"
       );
-
-      setSubmitStatus({
-        success: true,
-        message: "Message sent successfully! I'll get back to you soon.",
-      });
-      
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error sending email:", error);
-      setSubmitStatus({
-        success: false,
-        message: "Failed to send message. Please try again later.",
-      });
-    } finally {
-      setIsSubmitting(false);
+      setStatus("error");
     }
   };
 
@@ -87,41 +63,19 @@ export default function Contact() {
           <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
             className="glass p-8 rounded-2xl"
           >
             <h3 className="text-2xl font-bold mb-6 text-primary">Contact Information</h3>
             
             <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="p-3 rounded-full bg-gray-800 mr-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-300">Phone</h4>
-                  <p className="text-gray-400">+91 9084614505</p>
-                </div>
-              </div>
-
+              {/* Email */}
               <div className="flex items-start">
                 <div className="p-3 rounded-full bg-gray-800 mr-4">
                   <svg
@@ -141,10 +95,41 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-300">Email</h4>
-                  <p className="text-gray-400">sunilsaini90846@gmail.com</p>
+                  <a
+                    href="mailto:sunilsainideveloper@gmail.com"
+                    className="text-primary hover:underline"
+                  >
+                    sunilsainideveloper@gmail.com
+                  </a>
                 </div>
               </div>
 
+              {/* Phone */}
+              <div className="flex items-start">
+                <div className="p-3 rounded-full bg-gray-800 mr-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-primary"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-300">WhatsApp</h4>
+                  <p className="text-primary">+91 6395315369</p>
+                  <p className="text-sm text-gray-400 mt-1">WhatsApp only</p>
+                </div>
+              </div>
+
+              {/* Location */}
               <div className="flex items-start">
                 <div className="p-3 rounded-full bg-gray-800 mr-4">
                   <svg
@@ -170,32 +155,17 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-300">Location</h4>
-                  <p className="text-gray-400">Muzaffarnagar, Uttar Pradesh, India</p>
+                  <p className="text-gray-400">India</p>
                 </div>
               </div>
             </div>
 
-            {/* AI Chatbot Teaser */}
-            <div className="mt-10 p-4 border border-primary/30 rounded-xl bg-gray-800/50">
-              <div className="flex items-center mb-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-primary mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-                <h4 className="text-primary font-semibold">AI Assistant</h4>
-              </div>
-              <p className="text-gray-400 text-sm">
-                Need immediate assistance? My AI assistant can help answer your questions instantly.
+            {/* Availability note */}
+            <div className="mt-8 p-4 border border-primary/30 rounded-lg bg-primary/5">
+              <h4 className="text-lg font-semibold text-primary mb-2">Availability</h4>
+              <p className="text-gray-300">
+                I'm currently available for freelance work and full-time positions.
+                Feel free to reach out if you have a project in mind!
               </p>
             </div>
           </motion.div>
@@ -204,7 +174,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
             className="glass p-8 rounded-2xl"
           >
@@ -221,11 +191,12 @@ export default function Contact() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Your Name"
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 focus:outline-none focus:border-primary transition-colors"
+                  placeholder="Your name"
                 />
               </div>
-
+              
               <div>
                 <label htmlFor="email" className="block text-gray-300 mb-2">
                   Email
@@ -236,11 +207,12 @@ export default function Contact() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 focus:outline-none focus:border-primary transition-colors"
-                  placeholder="your.email@example.com"
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 focus:outline-none focus:border-primary transition-colors"
+                  placeholder="Your email"
                 />
               </div>
-
+              
               <div>
                 <label htmlFor="message" className="block text-gray-300 mb-2">
                   Message
@@ -250,40 +222,48 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 focus:outline-none focus:border-primary transition-colors resize-none"
-                  placeholder="Your message here..."
+                  className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 focus:outline-none focus:border-primary transition-colors resize-none"
+                  placeholder="Your message"
                 ></textarea>
               </div>
-
-              {/* Submit button */}
+              
               <motion.button
                 type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-3 rounded-lg font-semibold ${
-                  isSubmitting
-                    ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                disabled={status === "submitting"}
+                className={`w-full px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                  status === "submitting"
+                    ? "bg-gray-600 text-gray-300 cursor-not-allowed"
                     : "bg-primary text-dark hover:bg-opacity-80 shadow-neon"
-                } transition-all duration-300`}
-                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                }`}
+                whileHover={{ scale: status !== "submitting" ? 1.02 : 1 }}
+                whileTap={{ scale: status !== "submitting" ? 0.98 : 1 }}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {status === "idle" && "Send Message"}
+                {status === "submitting" && "Sending..."}
+                {status === "success" && "Message Sent!"}
+                {status === "error" && "Failed to Send. Try Again."}
               </motion.button>
-
-              {/* Status message */}
-              {submitStatus && (
-                <motion.div
+              
+              {status === "success" && (
+                <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`p-3 rounded-lg text-center ${
-                    submitStatus.success
-                      ? "bg-green-900/30 text-green-400 border border-green-800"
-                      : "bg-red-900/30 text-red-400 border border-red-800"
-                  }`}
+                  className="text-green-400 text-center"
                 >
-                  {submitStatus.message}
-                </motion.div>
+                  Thank you for your message! I'll get back to you soon.
+                </motion.p>
+              )}
+              
+              {status === "error" && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-red-400 text-center"
+                >
+                  Something went wrong. Please try again or contact me directly.
+                </motion.p>
               )}
             </form>
           </motion.div>

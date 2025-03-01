@@ -33,10 +33,11 @@ export default function About() {
               <div className="p-2">
                 <div className="relative aspect-square rounded-xl overflow-hidden">
                   <Image
-                    src="/profile-placeholder.jpg"
+                    src="/profile.jpg"
                     alt="Sunil Kumar"
                     fill
                     className="object-cover"
+                    priority
                   />
                 </div>
               </div>
