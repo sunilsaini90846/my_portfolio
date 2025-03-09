@@ -164,7 +164,7 @@ export default function Contact() {
             <div className="mt-8 p-4 border border-primary/30 rounded-lg bg-primary/5">
               <h4 className="text-lg font-semibold text-primary mb-2">Availability</h4>
               <p className="text-gray-300">
-                I'm currently available for freelance work and full-time positions.
+                I&apos;m currently available for freelance work and full-time positions.
                 Feel free to reach out if you have a project in mind!
               </p>
             </div>
@@ -252,7 +252,7 @@ export default function Contact() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-green-400 text-center"
                 >
-                  Thank you for your message! I'll get back to you soon.
+                  Thank you for your message! I&apos;ll get back to you soon.
                 </motion.p>
               )}
               
