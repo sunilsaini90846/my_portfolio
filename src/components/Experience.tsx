@@ -1,34 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import portfolioData from "@/data/portfolio.json";
 
-// Experience data
-const experiences = [
-  {
-    id: 1,
-    company: "Spire Innovations, Inc",
-    position: "Senior Software Engineer (Flutter)",
-    duration: "October 2023 - March 2024",
-    description: "Worked on Flutter applications and integrated with Spring Boot and Django Rest Framework backends. Utilized Microsoft Intune for enterprise app management.",
-    skills: ["Flutter", "Dart", "Spring Boot", "Python", "Django Rest Framework", "Microsoft Intune"],
-  },
-  {
-    id: 2,
-    company: "Techahead",
-    position: "Senior Software Engineer",
-    duration: "October 2023 - March 2024",
-    description: "Developed cross-platform apps from scratch. Conducted thorough team code reviews. Worked on code refactoring and securing sensitive data in apps. Upgraded Flutter dependencies and improved project architecture.",
-    skills: ["Dart", "Flutter", "Postman", "Flutter Web", "Code Refactoring"],
-  },
-  {
-    id: 3,
-    company: "Ficode Software Solutions Private Limited",
-    position: "Software Engineer (Flutter & iOS)",
-    duration: "March 2019 - September 2023",
-    description: "Developed 8 high-performing mobile apps using Flutter and 3 native iPhone/iPad apps using Swift. Upgraded legacy projects to the latest Flutter versions. Recognized as 'Employee of the Month' for outstanding contributions.",
-    skills: ["Flutter", "iOS", "Swift", "LLD", "HLD", "Project Documentation"],
-  },
-];
+const experiences = portfolioData.experience;
 
 export default function Experience() {
   return (

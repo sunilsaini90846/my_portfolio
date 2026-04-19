@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import * as THREE from "three";
+import portfolioData from "@/data/portfolio.json";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -141,14 +142,14 @@ export default function Hero() {
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 neon-text"
           variants={itemVariants}
         >
-          Sunil Kumar
+          {portfolioData.name}
         </motion.h1>
 
         <motion.h2
           className="text-xl md:text-2xl lg:text-3xl mb-8 text-gray-300"
           variants={itemVariants}
         >
-          Senior Software Engineer
+          {portfolioData.current_title}
           <span className="inline-block ml-3 animate-pulse-slow">
             <span className="text-primary">|</span>
           </span>
@@ -158,7 +159,7 @@ export default function Hero() {
           className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-gray-400"
           variants={itemVariants}
         >
-          Crafting exceptional mobile experiences with Flutter and iOS. Building the future, one app at a time.
+          {portfolioData.tagline}
         </motion.p>
 
         <motion.div

@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import portfolioData from "@/data/portfolio.json";
 
 type FormData = {
   name: string;
@@ -96,10 +97,10 @@ export default function Contact() {
                 <div>
                   <h4 className="text-lg font-semibold text-gray-300">Email</h4>
                   <a
-                    href="mailto:sunilsainideveloper@gmail.com"
+                    href={`mailto:${portfolioData.contact.email}`}
                     className="text-primary hover:underline"
                   >
-                    sunilsainideveloper@gmail.com
+                    {portfolioData.contact.email}
                   </a>
                 </div>
               </div>
@@ -124,7 +125,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-300">WhatsApp</h4>
-                  <p className="text-primary">+91 6395315369</p>
+                  <p className="text-primary">{portfolioData.contact.whatsapp}</p>
                   <p className="text-sm text-gray-400 mt-1">WhatsApp only</p>
                 </div>
               </div>
@@ -155,7 +156,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-300">Location</h4>
-                  <p className="text-gray-400">India</p>
+                  <p className="text-gray-400">{portfolioData.contact.location}</p>
                 </div>
               </div>
             </div>

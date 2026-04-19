@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import portfolioData from "@/data/portfolio.json";
 
 export default function About() {
   return (
@@ -33,8 +34,8 @@ export default function About() {
               <div className="p-2">
                 <div className="relative aspect-square rounded-xl overflow-hidden">
                   <Image
-                    src="/profile.jpg"
-                    alt="Sunil Kumar"
+                    src={portfolioData.about.profile_image}
+                    alt={portfolioData.name}
                     fill
                     className="object-cover"
                     priority
@@ -55,34 +56,21 @@ export default function About() {
             viewport={{ once: true }}
             className="glass p-8 rounded-2xl"
           >
-            <h3 className="text-2xl font-bold mb-4 text-primary">Senior Software Engineer</h3>
-            <p className="text-gray-300 mb-6">
-              Mobile application developer with 5+ years of hands-on experience in Flutter and iOS app development. 
-              Proficient in creating cross-platform applications with Flutter, and worked on iOS projects using Swift.
-            </p>
-            <p className="text-gray-300 mb-6">
-              Strong problem-solving skills and a dedication to staying updated with the latest advancements in mobile development. 
-              Committed to delivering high-quality, user-friendly applications that contribute to business growth.
-            </p>
+            <h3 className="text-2xl font-bold mb-4 text-primary">{portfolioData.current_title}</h3>
+            {portfolioData.about.bio.map((paragraph, index) => (
+              <p key={index} className="text-gray-300 mb-6">
+                {paragraph}
+              </p>
+            ))}
 
             {/* Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary">5+</h4>
-                <p className="text-sm text-gray-400">Years Experience</p>
-              </div>
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary">11+</h4>
-                <p className="text-sm text-gray-400">Flutter Apps</p>
-              </div>
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary">6+</h4>
-                <p className="text-sm text-gray-400">iOS Apps</p>
-              </div>
-              <div className="text-center">
-                <h4 className="text-3xl font-bold text-primary">3+</h4>
-                <p className="text-sm text-gray-400">Companies</p>
-              </div>
+              {portfolioData.stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <h4 className="text-3xl font-bold text-primary">{stat.value}</h4>
+                  <p className="text-sm text-gray-400">{stat.label}</p>
+                </div>
+              ))}
             </div>
 
             {/* Resume button */}
@@ -92,7 +80,7 @@ export default function About() {
               className="inline-block"
             >
               <Link 
-                href="/resume.pdf" 
+                href={portfolioData.about.resume_url} 
                 target="_blank"
                 className="px-6 py-3 rounded-full bg-primary text-dark font-semibold hover:bg-opacity-80 transition-all duration-300 shadow-neon inline-flex items-center"
               >

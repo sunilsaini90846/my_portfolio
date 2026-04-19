@@ -2,50 +2,12 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import portfolioData from "@/data/portfolio.json";
 
-// Skill categories and items
-const skillCategories = [
-  {
-    name: "Mobile Development",
-    skills: [
-      { name: "Flutter", level: 95 },
-      { name: "Dart", level: 95 },
-      { name: "Swift", level: 85 },
-      { name: "iOS Development", level: 85 },
-      { name: "Android Development", level: 80 },
-    ],
-  },
-  {
-    name: "State Management",
-    skills: [
-      { name: "GetX", level: 90 },
-      { name: "Flutter Bloc", level: 85 },
-      { name: "Provider", level: 90 },
-      { name: "MVC", level: 85 },
-      { name: "MVVM", level: 80 },
-    ],
-  },
-  {
-    name: "Backend & APIs",
-    skills: [
-      { name: "RESTful APIs", level: 90 },
-      { name: "Firebase", level: 85 },
-      { name: "Python", level: 75 },
-      { name: "Django Rest Framework", level: 70 },
-    ],
-  },
-  {
-    name: "Tools & Others",
-    skills: [
-      { name: "Git", level: 90 },
-      { name: "Xcode", level: 85 },
-      { name: "Android Studio", level: 85 },
-      { name: "VS Code", level: 90 },
-      { name: "Postman", level: 85 },
-      { name: "CI/CD", level: 75 },
-    ],
-  },
-];
+const skillCategories = portfolioData.skill_categories.map((cat) => ({
+  name: cat.label,
+  skills: cat.skills,
+}));
 
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState(skillCategories[0].name);

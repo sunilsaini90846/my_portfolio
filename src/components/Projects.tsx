@@ -2,67 +2,24 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import portfolioData from "@/data/portfolio.json";
 
-// Project data
-const projects = [
-  {
-    id: 1,
-    title: "Bubll",
-    description: "IoT-based mobile application for smart home control and automation.",
-    image: "/project-placeholder-1.jpg",
-    category: "Mobile App",
-    technologies: ["Flutter", "Dart", "Firebase", "IoT"],
-    link: "#",
-  },
-  {
-    id: 2,
-    title: "IBOS",
-    description: "Integrated business operations system with real-time analytics and reporting.",
-    image: "/project-placeholder-2.jpg",
-    category: "Mobile App",
-    technologies: ["Flutter", "Dart", "RESTful API", "Charts"],
-    link: "#",
-  },
-  {
-    id: 3,
-    title: "Workman",
-    description: "Task management and workforce optimization platform for field service teams.",
-    image: "/project-placeholder-3.jpg",
-    category: "Mobile App",
-    technologies: ["Swift", "iOS", "Firebase", "Maps API"],
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "E-Commerce App",
-    description: "Full-featured e-commerce mobile application with payment integration.",
-    image: "/project-placeholder-4.jpg",
-    category: "Mobile App",
-    technologies: ["Flutter", "Dart", "Stripe", "Firebase"],
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "Health Tracker",
-    description: "Health and fitness tracking application with personalized insights.",
-    image: "/project-placeholder-5.jpg",
-    category: "Mobile App",
-    technologies: ["Swift", "iOS", "HealthKit", "CoreML"],
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Social Media App",
-    description: "Social networking platform with real-time messaging and content sharing.",
-    image: "/project-placeholder-6.jpg",
-    category: "Mobile App",
-    technologies: ["Flutter", "Dart", "Firebase", "WebRTC"],
-    link: "#",
-  },
-];
+const projects = portfolioData.projects.map((p) => ({
+  id: p.id,
+  title: p.title,
+  subtitle: p.subtitle,
+  description: p.description,
+  category: p.category,
+  technologies: p.tech_stack,
+  platform: p.platform,
+  period: p.period,
+  status: p.status,
+  company: p.company,
+  link: p.live_url,
+  highlights: p.highlights,
+}));
 
-// Filter categories
-const categories = ["All", "Mobile App", "Web App", "UI/UX"];
+const categories = portfolioData.project_categories;
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -139,30 +96,40 @@ export default function Projects() {
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* Project image */}
-                <div className="relative h-48 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-blue to-transparent opacity-60 z-10"></div>
-                  <div className="relative h-full w-full bg-gray-800">
-                    {/* Placeholder for project image */}
-                    <div className="absolute inset-0 flex items-center justify-center text-primary">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
+                {/* Project header */}
+                <div className="relative h-36 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                    <span className="text-xs font-medium uppercase tracking-wider text-primary/70 mb-1">{project.company}</span>
+                    <h3 className="text-xl font-bold text-primary">{project.title}</h3>
+                    <p className="text-sm text-gray-400 mt-1">{project.subtitle}</p>
+                  </div>
+                  <div className="absolute top-3 right-3">
+                    <span className={`px-2 py-1 text-[10px] rounded-full font-medium ${
+                      project.status === "In Production" || project.status === "Live"
+                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                        : "bg-gray-700/50 text-gray-400 border border-gray-600/30"
+                    }`}>
+                      {project.status}
+                    </span>
                   </div>
                 </div>
 
                 {/* Project content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-primary">{project.title}</h3>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
-                  
+                  <p className="text-gray-300 text-sm mb-3">{project.description}</p>
+
+                  <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
+                    <span>{project.period}</span>
+                    <span>·</span>
+                    <span>{project.platform.join(", ")}</span>
+                  </div>
+
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.technologies.map((tech, index) => (
                       <span 
                         key={index} 
-                        className="px-3 py-1 text-xs rounded-full bg-gray-800 text-primary border border-primary/30"
+                        className="px-2.5 py-1 text-[11px] rounded-full bg-gray-800 text-primary border border-primary/30"
                       >
                         {tech}
                       </span>
@@ -170,14 +137,18 @@ export default function Projects() {
                   </div>
                   
                   {/* View project button */}
-                  <motion.a
-                    href={project.link}
-                    className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary border border-primary/50 hover:bg-primary/30 transition-colors duration-300 text-sm font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    View Project
-                  </motion.a>
+                  {project.link !== "#" && (
+                    <motion.a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary border border-primary/50 hover:bg-primary/30 transition-colors duration-300 text-sm font-medium"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      View Project
+                    </motion.a>
+                  )}
                 </div>
 
                 {/* Glow effect on hover */}

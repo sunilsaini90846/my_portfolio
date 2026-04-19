@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import portfolioData from "@/data/portfolio.json";
 
 const socialLinks = [
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/sunilsainideveloper",
+    url: portfolioData.contact.linkedin,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +23,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
-    url: "https://github.com/sunilsaini90846",
+    url: portfolioData.contact.github,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -52,10 +53,10 @@ export default function Footer() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              Sunil Kumar
+              {portfolioData.name}
             </motion.h2>
             <p className="text-gray-400 text-center md:text-left">
-              Senior Software Engineer specializing in Flutter and mobile app development.
+              {portfolioData.footer.description}
             </p>
           </div>
 
@@ -113,10 +114,10 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-gray-800 text-center">
           <p className="text-gray-400">
-            © {currentYear} Sunil Kumar. All rights reserved.
+            © {currentYear} {portfolioData.name}. All rights reserved.
           </p>
           <p className="text-gray-500 text-sm mt-2">
-            Built with Next.js, Tailwind CSS, and Framer Motion
+            {portfolioData.footer.built_with}
           </p>
         </div>
       </div>
